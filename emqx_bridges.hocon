@@ -1,0 +1,21 @@
+bridges {
+  kafka {
+    "sinc_connector" {
+      authentication = "none"
+      bootstrap_hosts = "kafka-kraft:29092"
+      kafka {
+        topic = "sinc_topic"
+      }
+    }
+  }
+}
+rule_engine {
+  rules {
+    "sinc_rule" {
+      actions = ["kafka:sinc_connector"]
+      sql = "SELECT payload FROM \"mqttx/simulate/#\""
+    }
+  }
+  ignore_sys_message = true
+  jq_function_default_timeout = "10s"
+}
