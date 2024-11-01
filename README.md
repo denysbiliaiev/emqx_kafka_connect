@@ -37,6 +37,13 @@ Using the Kafka bridging functionality, MQTT topics are mapped to pre-defined Ka
 all processed messages and data are written into Kafka topics.
 
 ![screenshot](mqtt_emqx.png)
+
+[Data Bridges](https://docs.emqx.com/en/emqx/latest/data-integration/rule-sql-events-and-fields.html#data-bridges)
+
+[Create a Rule with MQTT (Data Input) Broker Source og (Data Output) Republish Action](https://docs.emqx.com/en/emqx/latest/data-integration/data-bridge-mqtt.html#create-a-rule-with-mqtt-broker-source)
+
+[How Rules Work](https://docs.emqx.com/en/cloud/latest/data_integration/rules.html#how-rules-work)
+
 Sink
 ![screenshot](emqx_kafka.png)
 Source

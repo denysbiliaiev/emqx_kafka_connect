@@ -34,18 +34,6 @@ services:
     depends_on:
       - kafka-kraft
 
-  mqttx-simulate:
-    image: emqx/mqttx-cli:v1.9.3
-    container_name: mqttx-simulate_iem
-    command:
-      - /bin/sh
-      - -c
-      - |
-        mqttx simulate -sc IEM -c 1000 -h emqx-enterprise
-    depends_on:
-      emqx-enterprise:
-        condition: service_healthy
-
   mqttx:
     image: emqx/mqttx-cli:v1.9.3
     container_name: mqttx
@@ -53,7 +41,7 @@ services:
       - /bin/sh
       - -c
       - |
-        mqttx sub -t 'mqttx/simulate/#' -v -h emqx-enterprise
+        mqttx sub -t 'mqttx/source_topic' -v -h emqx-enterprise
     depends_on:
       emqx-enterprise:
         condition: service_healthy

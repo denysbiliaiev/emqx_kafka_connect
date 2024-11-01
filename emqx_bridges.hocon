@@ -1,6 +1,6 @@
 bridges {
   kafka {
-    "sinc_connector" {
+    sinc_connector_output {
       authentication = "none"
       bootstrap_hosts = "kafka-kraft:29092"
       kafka {
@@ -8,12 +8,28 @@ bridges {
       }
     }
   }
+  kafka_consumer {
+    source_connector_input {
+      authentication = "none"
+      bootstrap_hosts = "kafka-kraft:29092"
+      topic_mapping = [
+        {
+          kafka_topic = "source_topic"
+          mqtt_topic = "mqttx/source_topic"
+        }
+      ]
+    }
+  }
 }
 rule_engine {
   rules {
-    "sinc_rule" {
-      actions = ["kafka:sinc_connector"]
+    sinc_rule {
+      actions = ["kafka:sinc_connector_output"]
       sql = "SELECT payload FROM \"mqttx/simulate/#\""
+    }
+    source_rule {
+      actions = ["republish:source_connector_output"]
+      sql = "SELECT * FROM \"$bridges/kafka_consumer:source_connector_input\""
     }
   }
   ignore_sys_message = true
